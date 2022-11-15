@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+group = 'com.kozaxinan.android-lints'
+
+android {
+    compileSdkVersion 31
+
+    defaultConfig {
+        minSdkVersion 14
+    }
+
+    buildFeatures {
+        buildConfig = false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildToolsVersion '32.0.0'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = "com.kozaxinan.android-lints"
+                artifactId = "android-lints"
+
+                from components.release
+            }
+        }
+    }
+}
+
+
+dependencies {
+    lintPublish project(':checks')
+}
